@@ -31,6 +31,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -181,6 +182,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
     JButton                   m_btnClear;
     JToggleButton             m_tbtnPause;
     JButton                   m_btnStop;
+    JButton                   m_btnWipe;
     
     String                    m_strLogFileName;
     String                    m_strSelectedDevice;
@@ -348,7 +350,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
         {
             Properties p = new Properties();
             
-            // ini ÆÄÀÏ ÀÐ±â
+            // ini ï¿½ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½
             p.load(new FileInputStream(INI_FILE_CMD));
             
             T.d("p.getProperty(INI_CMD_COUNT) = " + p.getProperty(INI_CMD_COUNT));
@@ -440,10 +442,10 @@ public class LogFilterMain extends JFrame implements INotiEvent
         {
             Properties p = new Properties();
             
-            // ini ÆÄÀÏ ÀÐ±â
+            // ini ï¿½ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½
             p.load(new FileInputStream(INI_FILE));
             
-            // Key °ª ÀÐ±â
+            // Key ï¿½ï¿½ ï¿½Ð±ï¿½
             String strFontType = p.getProperty(INI_FONT_TYPE);
             if(strFontType != null && strFontType.length() > 0)
                 m_jcFontType.setSelectedItem(p.getProperty(INI_FONT_TYPE));
@@ -516,26 +518,26 @@ public class LogFilterMain extends JFrame implements INotiEvent
     {
         addDesc(VERSION);
         addDesc("");
-        addDesc("Version 1.8 : java -jar LogFilter_xx.jar [filename] Ãß°¡");
-        addDesc("Version 1.7 : copy½Ã º¸ÀÌ´Â column¸¸ clipboard¿¡ º¹»ç(Line Á¦¿Ü)");
-        addDesc("Version 1.6 : cmdÄÞº¸¹Ú½º ±æÀÌ °íÁ¤");
-        addDesc("Version 1.5 : Highlight color listÃß°¡()");
-        addDesc("   - LogFilterColor.ini ¿¡ Ä«¿îÆ®¿Í °ª ³Ö¾î ÁÖ½Ã¸é µË´Ï´Ù.");
+        addDesc("Version 1.8 : java -jar LogFilter_xx.jar [filename] ï¿½ß°ï¿½");
+        addDesc("Version 1.7 : copyï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ columnï¿½ï¿½ clipboardï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(Line ï¿½ï¿½ï¿½ï¿½)");
+        addDesc("Version 1.6 : cmdï¿½Þºï¿½ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        addDesc("Version 1.5 : Highlight color listï¿½ß°ï¿½()");
+        addDesc("   - LogFilterColor.ini ï¿½ï¿½ Ä«ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¾ï¿½ ï¿½Ö½Ã¸ï¿½ ï¿½Ë´Ï´ï¿½.");
         addDesc("   - ex)INI_HIGILIGHT_COUNT=2");
         addDesc("   -    INI_COLOR_HIGILIGHT_0=0xFFFF");
         addDesc("   -    INI_COLOR_HIGILIGHT_1=0x00FF");
-        addDesc("Version 1.4 : Ã¢Å©±â ÀúÀå");
-        addDesc("Version 1.3 : recent file ¹× open¸Þ´ºÃß°¡");
-        addDesc("Version 1.2 : Tid ÇÊÅÍ Ãß°¡");
-        addDesc("Version 1.1 : Level F Ãß°¡");
-        addDesc("Version 1.0 : Pid filter Ãß°¡");
-        addDesc("Version 0.9 : Font type Ãß°¡");
-        addDesc("Version 0.8 : ÇÊÅÍÃ¼Å© ¹Ú½º Ãß°¡");
-        addDesc("Version 0.7 : Ä¿³Î·Î±× ÆÄ½Ì/LogFilter.ini¿¡ ÄÃ·¯Á¤ÀÇ(0~7)");
-        addDesc("Version 0.6 : ÇÊÅÍ ´ë¼Ò¹® ¹«½Ã");
-        addDesc("Version 0.5 : ¸í·É¾î iniÆÄÀÏ·Î ÀúÀå");
-        addDesc("Version 0.4 : add thread option, filter ÀúÀå");
-        addDesc("Version 0.3 : ´Ü¸» ¼±ÅÃ ¾ÈµÇ´Â ¹®Á¦ ¼öÁ¤");
+        addDesc("Version 1.4 : Ã¢Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        addDesc("Version 1.3 : recent file ï¿½ï¿½ openï¿½Þ´ï¿½ï¿½ß°ï¿½");
+        addDesc("Version 1.2 : Tid ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½");
+        addDesc("Version 1.1 : Level F ï¿½ß°ï¿½");
+        addDesc("Version 1.0 : Pid filter ï¿½ß°ï¿½");
+        addDesc("Version 0.9 : Font type ï¿½ß°ï¿½");
+        addDesc("Version 0.8 : ï¿½ï¿½ï¿½ï¿½Ã¼Å© ï¿½Ú½ï¿½ ï¿½ß°ï¿½");
+        addDesc("Version 0.7 : Ä¿ï¿½Î·Î±ï¿½ ï¿½Ä½ï¿½/LogFilter.iniï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½(0~7)");
+        addDesc("Version 0.6 : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ò¹ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        addDesc("Version 0.5 : ï¿½ï¿½É¾ï¿½ iniï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        addDesc("Version 0.4 : add thread option, filter ï¿½ï¿½ï¿½ï¿½");
+        addDesc("Version 0.3 : ï¿½Ü¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
         addDesc("");
         addDesc("[Tag]");
         addDesc("Alt+L/R Click : Show/Remove tag");
@@ -554,7 +556,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
     }
 
     /**
-     * @param nIndex    ½ÇÁ¦ ¸®½ºÆ®ÀÇ ÀÎµ¦½º
+     * @param nIndex    ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
      * @param nLine     m_strLine
      * @param bBookmark
      */
@@ -1087,8 +1089,12 @@ public class LogFilterMain extends JFrame implements INotiEvent
         m_btnStop = new JButton("Stop");
         m_btnStop.setMargin(new Insets(0, 0, 0, 0));
         m_btnStop.setEnabled(false);
+        m_btnWipe = new JButton("Wipe");
+        m_btnWipe.setMargin(new Insets(0, 0, 0, 0));
+        m_btnWipe.setEnabled(true);
         m_btnRun.addActionListener(m_alButtonListener);
         m_btnStop.addActionListener(m_alButtonListener);
+        m_btnWipe.addActionListener(m_alButtonListener);
         m_btnClear.addActionListener(m_alButtonListener);
         m_tbtnPause.addActionListener(m_alButtonListener);
 
@@ -1107,6 +1113,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
         optionWest.add(m_btnRun);
         optionWest.add(m_tbtnPause);
         optionWest.add(m_btnStop);
+        optionWest.add(m_btnWipe);
 
         optionMenu.add(optionWest, BorderLayout.WEST);
         return optionMenu;
@@ -1259,11 +1266,11 @@ public class LogFilterMain extends JFrame implements INotiEvent
                 strCommand = (String)m_comboDeviceCmd.getSelectedItem();
             Process oProcess = Runtime.getRuntime().exec(strCommand);
 
-            // ¿ÜºÎ ÇÁ·Î±×·¥ Ãâ·Â ÀÐ±â
+            // ï¿½Üºï¿½ ï¿½ï¿½ï¿½Î±×·ï¿½ ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½
             BufferedReader stdOut   = new BufferedReader(new InputStreamReader(oProcess.getInputStream()));
             BufferedReader stdError = new BufferedReader(new InputStreamReader(oProcess.getErrorStream()));
 
-            // "Ç¥ÁØ Ãâ·Â"°ú "Ç¥ÁØ ¿¡·¯ Ãâ·Â"À» Ãâ·Â
+            // "Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½"ï¿½ï¿½ "Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½"ï¿½ï¿½ ï¿½ï¿½ï¿½
             while ((s =   stdOut.readLine()) != null)
             {
                 if(!s.equals("List of devices attached "))
@@ -1278,7 +1285,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
                 listModel.addElement(s);
             }
 
-            // ¿ÜºÎ ÇÁ·Î±×·¥ ¹ÝÈ¯°ª Ãâ·Â (ÀÌ ºÎºÐÀº ÇÊ¼ö°¡ ¾Æ´Ô)
+            // ï¿½Üºï¿½ ï¿½ï¿½ï¿½Î±×·ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ (ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½Ê¼ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½)
             System.out.println("Exit Code: " + oProcess.exitValue());
         }
         catch(Exception e)
@@ -1363,6 +1370,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
         if(bStart)
         {
             m_btnRun.setEnabled(false);
+            m_btnWipe.setEnabled(false);
             m_btnStop.setEnabled(true);
             m_btnClear.setEnabled(true);
             m_tbtnPause.setEnabled(true);
@@ -1370,6 +1378,7 @@ public class LogFilterMain extends JFrame implements INotiEvent
         else
         {
             m_btnRun.setEnabled(true);
+            m_btnWipe.setEnabled(true);
             m_btnStop.setEnabled(false);
             m_btnClear.setEnabled(false);
             m_tbtnPause.setEnabled(false);
@@ -1450,6 +1459,19 @@ public class LogFilterMain extends JFrame implements INotiEvent
         m_thProcess = null;
         m_thWatchFile = null;
         m_bPauseADB = false;
+    }
+
+    void wipeLogcat() {
+        try {
+            String cmd;
+            if(m_lDeviceList.getSelectedIndex() < 0)
+                cmd = ANDROID_DEFAULT_CMD_FIRST + "logcat -c";
+            else
+                cmd = ANDROID_SELECTED_CMD_FIRST + m_strSelectedDevice + "logcat -c";
+            Runtime.getRuntime().exec(cmd);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void startFileParse()
@@ -1877,6 +1899,9 @@ public class LogFilterMain extends JFrame implements INotiEvent
             else if(e.getSource().equals(m_btnStop))
             {
                 stopProcess();
+            }
+            else if(e.getSource().equals(m_btnWipe)) {
+                wipeLogcat();
             }
             else if(e.getSource().equals(m_btnClear))
             {
